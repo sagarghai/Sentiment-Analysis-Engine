@@ -19,7 +19,7 @@ import re
 
 class Splitter(object):
     def __init__(self):
-        self.nltk_splitter = nltk.data.load('tokenizers/punkt/english.pickle')
+        self.nltk_splitter = nltk.data.load('')                                                                     # todo
         self.nltk_tokenizer = nltk.tokenize.TreebankWordTokenizer()
 
     def split(self, text):
