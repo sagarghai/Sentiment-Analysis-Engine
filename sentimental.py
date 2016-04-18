@@ -13,10 +13,13 @@ import csv
 import math
 import nltk.tokenize import RegexpTokenizer
 import nltk.corpus import stopwords
+import nltk
 import re
 
 # Cleaning of data
 
+
+# Splitter class to split the the data in to words and store them into list 
 class Splitter(object):
     def __init__(self):
         self.nltk_splitter = nltk.data.load('')                                                                     # todo
