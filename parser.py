@@ -23,7 +23,8 @@ def parser(filename):
 	for line in fp:
 		l = re.findall(r'text=u(.*?), is_quote_status',line)
 		tweet.append(l[0])
-		return tweet
+		#print l[0]
+	return tweet
 
 # Get file name by command line argument
 filename = sys.argv[1]
