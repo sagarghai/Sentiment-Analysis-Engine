@@ -11,8 +11,8 @@ BUG FIXES :
 import sys
 import csv
 import math
-import nltk.tokenize import RegexpTokenizer
-import nltk.corpus import stopwords
+from nltk.tokenize import RegexpTokenizer
+from nltk.corpus import stopwords
 import nltk
 import re
 

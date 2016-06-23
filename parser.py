@@ -27,8 +27,7 @@ def parser(filename):
 	return tweet
 
 # Get file name by command line argument
-filename = sys.argv[1]
-parser(filename)
+
 
 
 
