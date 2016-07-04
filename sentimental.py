@@ -15,6 +15,7 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import stopwords
 import nltk
 import re
+import yaml
 
 # Cleaning of data
 
