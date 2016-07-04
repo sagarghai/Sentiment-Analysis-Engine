@@ -123,11 +123,11 @@ def sentiment_score(review):
     return sum ([value_of(tag) for sentence in dict_tagged_sentences for token in sentence for tag in token[2]])
 
 
-text = """What can I say about this place. The staff of the restaurant is nice and the eggplant is not bad. Apart from that, very uninspired food, lack of atmosphere and too expensive. I am a staunch vegetarian and was sorely dissapointed with the veggie options on the menu. Will be the last time I visit, I recommend others to avoid."""
+# text = """What can I say about this place. The staff of the restaurant is nice and the eggplant is not bad. Apart from that, very uninspired food, lack of atmosphere and too expensive. I am a staunch vegetarian and was sorely dissapointed with the veggie options on the menu. Will be the last time I visit, I recommend others to avoid."""
 
-splitter = Splitter()
-postagger = POSTagger()
+# splitter = Splitter()
+# postagger = POSTagger()
 
-splitted_sentences = splitter.split(text)
+# splitted_sentences = splitter.split(text)
 
-print splitted_sentences
+# print splitted_sentences

@@ -11,18 +11,28 @@ BUG FIXES :
 		June 22,2016  
 """
 import sys
-#from sentimental import DictionaryTagger
+import sentimental
 import parser
 import nltk
 import Hashtag
 import twitter
 
-twitter.takename("") 
+twitter.takename("put you preference here") 
 filename = sys.argv[1]
 listoftweets = parser.parser(filename)
 #print li 
 
 Hashtag.hashtag(listoftweets)
 
+splitter = sentimental.Splitter()
+postagger = sentimental.POSTagger()
+dicttagger = DictionaryTagger([ 'positive-words.yml', 'negative-words.yml'])
 
+for tweet in listoftweets:
+	splitted_sentences = splitter.split(tweet)
+	print splitted_sentences
+	pos_tagged_sentences = postagger.pos_tag(splitted_sentences)
+
+	dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
+	sentiment_score(dict_tagged_sentences)
 
