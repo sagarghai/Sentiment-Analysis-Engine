@@ -13,7 +13,6 @@ BUG FIXES :
 import sys
 import csv
 import math
-import nltk
 import re
 
 def parser(filename):
@@ -23,11 +22,10 @@ def parser(filename):
 	for line in fp:
 		l = re.findall(r'text=u(.*?), is_quote_status',line)
 		tweet.append(l[0])
-		#print l[0]
 	return tweet
 
 # Get file name by command line argument
-
+parser("output.json")
 
 
 
