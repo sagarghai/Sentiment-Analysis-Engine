@@ -15,7 +15,9 @@ import sys
 import parser
 import nltk
 import Hashtag
+import twitter
 
+twitter.takename("") 
 filename = sys.argv[1]
 listoftweets = parser.parser(filename)
 #print li 

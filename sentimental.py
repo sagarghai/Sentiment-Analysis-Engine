@@ -22,7 +22,7 @@ import re
 # Splitter class to split the the data in to words and store them into list 
 class Splitter(object):
     def __init__(self):
-        self.nltk_splitter = nltk.data.load('')                                                                     # todo
+        self.nltk_splitter = nltk.data.load('tokenizers/punkt/english.pickle')                                                                     # todo
         self.nltk_tokenizer = nltk.tokenize.TreebankWordTokenizer()
 
     def split(self, text):
@@ -122,3 +122,12 @@ def value_of(sentiment):
 def sentiment_score(review):    
     return sum ([value_of(tag) for sentence in dict_tagged_sentences for token in sentence for tag in token[2]])
 
+
+text = """What can I say about this place. The staff of the restaurant is nice and the eggplant is not bad. Apart from that, very uninspired food, lack of atmosphere and too expensive. I am a staunch vegetarian and was sorely dissapointed with the veggie options on the menu. Will be the last time I visit, I recommend others to avoid."""
+
+splitter = Splitter()
+postagger = POSTagger()
+
+splitted_sentences = splitter.split(text)
+
+print splitted_sentences
