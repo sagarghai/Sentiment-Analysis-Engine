@@ -12,28 +12,41 @@ BUG FIXES :
 """
 import sys
 import sentimental
-import parser
 import nltk
 import Hashtag
-# import twitter
+import twitter
 
-# twitter.takename("") 
+try:
+    count = sys.argv[2]
+except:
+    count = 10
 filename = sys.argv[1]
+k = (str)(raw_input('Enter your preference here > '))
+twitter.takename(k, filename, count)
+import parser
 listoftweets = parser.parser(filename)
-#print li 
 
-Hashtag.hashtag(listoftweets)
+# Hashtag.hashtag(listoftweets)
 
 splitter = sentimental.Splitter()
 postagger = sentimental.POSTagger()
-# dicttagger = sentimental.DictionaryTagger([ 'positive-words.yml', 'negative-words.yml'])
-
+dicttagger = sentimental.DictionaryTagger(['positive-words.yml', 'negative-words.yml'])
+filename = (str)(raw_input('Enter the filename to store individual tweet score > '))
+if 'csv' not in filename.split('.'):
+    filename + '.csv'
+file2 = open(filename, 'w+')
+sum = 0
 for tweet in listoftweets:
-	splitted_sentences = splitter.split(tweet)
-	# print (splitted_sentences)
-	pos_tagged_sentences = postagger.pos_tag(splitted_sentences)
-	print(pos_tagged_sentences)
-
-# 	dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
-# 	sentiment_score(dict_tagged_sentences)
-
+    # print tweet
+    splitted_sentences = splitter.split(tweet)
+    pos_tagged_sentences = postagger.pos_tag(splitted_sentences)
+    # print(pos_tagged_sentences)
+    dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
+    a = sentimental.sentiment_score(dict_tagged_sentences)
+    keywords = sentimental.keyword_token(dict_tagged_sentences)
+    keys = ','.join(keywords)
+    sum = sum + a
+    tweet = tweet.replace(',', "")
+    output = tweet + ',' + keys + ',' + (str)(a) + '\n'
+    file2.write(output)
+print 'Total sentiment score is :', sum

@@ -20,10 +20,12 @@ import yaml
 # Cleaning of data
 
 
-# Splitter class to split the the data in to words and store them into list 
+# Splitter class to split the the data in to words and store them into list
 class Splitter(object):
+
     def __init__(self):
-        self.nltk_splitter = nltk.data.load('tokenizers/punkt/english.pickle')                                                                     # todo
+        # todo
+        self.nltk_splitter = nltk.data.load('tokenizers/punkt/english.pickle')
         self.nltk_tokenizer = nltk.tokenize.TreebankWordTokenizer()
 
     def split(self, text):
@@ -38,9 +40,10 @@ class Splitter(object):
 
 
 class POSTagger(object):
+
     def __init__(self):
         pass
-        
+
     def pos_tag(self, sentences):
         """
         input format: list of lists of words
@@ -52,11 +55,14 @@ class POSTagger(object):
         """
 
         pos = [nltk.pos_tag(sentence) for sentence in sentences]
-        #adapt format
-        pos = [[(word, word, [postag]) for (word, postag) in sentence] for sentence in pos]
+        # adapt format
+        pos = [[(word, word, [postag]) for (word, postag) in sentence]
+               for sentence in pos]
         return pos
 
+
 class DictionaryTagger(object):
+
     def __init__(self, dictionary_paths):
         files = [open(path, 'r') for path in dictionary_paths]
         dictionaries = [yaml.load(dict_file) for dict_file in files]
@@ -69,7 +75,7 @@ class DictionaryTagger(object):
                     self.dictionary[key].extend(curr_dict[key])
                 else:
                     self.dictionary[key] = curr_dict[key]
-                    self.max_key_size = max(self.max_key_size, len(key))
+                    self.max_key_size = max(self.max_key_size, len((str)(key)))
 
     def tag(self, postagged_sentences):
         return [self.tag_sentence(sentence) for sentence in postagged_sentences]
@@ -81,13 +87,13 @@ class DictionaryTagger(object):
             - longest matches have higher priority
             - search is made from left to right
         """
-        tag_sentence = []
+        tag_sentences = []
         N = len(sentence)
         if self.max_key_size == 0:
             self.max_key_size = N
         i = 0
         while (i < N):
-            j = min(i + self.max_key_size, N) #avoid overflow
+            j = min(i + self.max_key_size, N)  # avoid overflow
             tagged = False
             while (j > i):
                 expression_form = ' '.join([word[0] for word in sentence[i:j]]).lower()
@@ -103,25 +109,38 @@ class DictionaryTagger(object):
                     i = j
                     taggings = [tag for tag in self.dictionary[literal]]
                     tagged_expression = (expression_form, expression_lemma, taggings)
-                    if is_single_token: #if the tagged literal is a single token, conserve its previous taggings:
+                    if is_single_token:  # if the tagged literal is a single token, conserve its previous taggings:
                         original_token_tagging = sentence[original_position][2]
                         tagged_expression[2].extend(original_token_tagging)
-                    tag_sentence.append(tagged_expression)
+                    tag_sentences.append(tagged_expression)
                     tagged = True
                 else:
                     j = j - 1
             if not tagged:
-                tag_sentence.append(sentence[i])
+                tag_sentences.append(sentence[i])
                 i += 1
-        return tag_sentence
+        return tag_sentences
+
 
 def value_of(sentiment):
-    if sentiment == 'positive': return 1
-    if sentiment == 'negative': return -1
+    if sentiment == 'positive':
+        return 1
+    if sentiment == 'negative':
+        return -1
     return 0
 
-def sentiment_score(review):    
-    return sum ([value_of(tag) for sentence in dict_tagged_sentences for token in sentence for tag in token[2]])
+
+def keyword_token(review):
+    keywords = []
+    for sentence in review:
+        for token in sentence:
+            if token[2][0] == 'positive' or token[2][0] == 'negative':
+                keywords.append(token[0])
+    return keywords
+
+
+def sentiment_score(review):
+    return sum([value_of(tag) for sentence in review for token in sentence for tag in token[2]])
 
 
 # text = """What can I say about this place. The staff of the restaurant is nice and the eggplant is not bad. Apart from that, very uninspired food, lack of atmosphere and too expensive. I am a staunch vegetarian and was sorely dissapointed with the veggie options on the menu. Will be the last time I visit, I recommend others to avoid."""
