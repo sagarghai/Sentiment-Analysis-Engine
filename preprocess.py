@@ -33,6 +33,3 @@ def preprocess(s, lowercase=False):
         tokens = [token if emoticon_re.search(
             token) else token.lower() for token in tokens]
     return tokens
-
-tweet = "RT @marcobonzanini: just an example! :D http://example.com #NLP"
-print(preprocess(tweet))

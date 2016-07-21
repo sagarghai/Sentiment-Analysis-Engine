@@ -52,7 +52,6 @@ for tweet in listoftweets:
     file1.write(tkts)
     splitted_sentences = splitter.split(tweet)
     pos_tagged_sentences = postagger.pos_tag(splitted_sentences)
-    print pos_tagged_sentences
     dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
     a = sentimental.sentiment_score(dict_tagged_sentences)
     keywords = sentimental.keyword_token(dict_tagged_sentences)
