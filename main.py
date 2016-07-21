@@ -15,6 +15,7 @@ import sentimental
 import nltk
 import Hashtag
 import twitter
+import preprocess
 from nltk.corpus import stopwords
 
 try:
@@ -42,14 +43,16 @@ sum = 0
 for tweet in listoftweets:
     tkt = []
     stop = stopwords.words('english')
-    for i in tweet.split():
-        if i not in stop:
+    tweet_tokens = preprocess.preprocess(tweet)
+    for i in tweet_tokens:
+        if i not in stop and len(i) >= 4:
             tkt.append(i)
-    tkts = ','.join(tkt)
+    tkts = ', '.join(tkt)
     tkts = tkts + '\n'
     file1.write(tkts)
     splitted_sentences = splitter.split(tweet)
     pos_tagged_sentences = postagger.pos_tag(splitted_sentences)
+    print pos_tagged_sentences
     dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
     a = sentimental.sentiment_score(dict_tagged_sentences)
     keywords = sentimental.keyword_token(dict_tagged_sentences)
