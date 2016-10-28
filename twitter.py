@@ -11,12 +11,6 @@ import simplejson as json
 #         if status_code == 420:
 #             return False
 
-ACCESS_TOKEN = ''
-ACCESS_SECRET = ''
-CONSUMER_KEY = ''
-CONSUMER_SECRET = ''
-
-
 def takename(keywords, filename, cnt):
     # S = SListener()
     oauth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
