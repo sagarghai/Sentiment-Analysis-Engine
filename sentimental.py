@@ -2,7 +2,7 @@
 FILE : parser.py
 DESCRIPTION : This code is made to do the actual data analysis.
 
-AUTHOR : Tushar Gupta
+AUTHOR : Sagar Ghai
 
 BUG FIXES :
 		April 11,2016  

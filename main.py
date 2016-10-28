@@ -5,7 +5,7 @@ DESCRIPTION : This code is the utility by which user need not to
 
 Run Command: main.py [json file name]
 
-AUTHOR : Tushar Gupta
+AUTHOR : Sagar Ghai
 
 BUG FIXES :
 		June 22,2016
